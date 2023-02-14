@@ -4,12 +4,21 @@
 
 # a function that draws the board for the user and the computer
 
-def makeboard(board_size):
-    game_board = [["."] * board_size for _ in range(board_size)]
-    for point in game_board:
-        print(*point)
+class Gameboard:
+    def __init__(self, name, size):
+        self.name = name
+        self.size = size
 
-makeboard(5)
+    def make_board(self):
+        game_board = [["."] * self.size for _ in range(self.size)]
+        for point in game_board:
+            print(*point)
+
+
+player_board = Gameboard("Player", 5)
+player_board.make_board()
+
+
 
 # a function that randomly places boats for each player
 # a turn counter function that tells how long the game has been played
