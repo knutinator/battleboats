@@ -1,5 +1,4 @@
 from random import randint
-# sketch of Battleboats program
 
 # Inspiration taken from:
 # https://codereview.stackexchange.com/questions/232013/a-simple-battleship-game
@@ -22,10 +21,14 @@ class Gameboard:
         print(self.name)
         game_board = [["."] * self.size for _ in range(self.size)]
         count = 0
+        
         while count < self.size:
-            x = randint(0, self.size - 1)
-            y = randint(0, self.size - 1)
-            count += 1
+            x = randint(0, self.size-1)
+            y = randint(0, self.size-1)
+            # sometimes generates same number twice, add function to check,
+            # maybe while game_board[x][y] == B: randomize again?
+            # print(f"x, y {x, y}")
+            count += 1 
             if game_board[x][y] == ".":
                 game_board[x][y] = "B"
 
@@ -34,11 +37,13 @@ class Gameboard:
         print("\n")
 
 
-player_board = Gameboard("PLAYER", 5)
-player_board.make_board()
+    def check_valid(self):    
 
-cpu_board = Gameboard("COMPUTER", 5)
-cpu_board.make_board()
+
+    def check_hit(self):   
+
+
+    def redraw_board(self):    
 
 
 # Function that hides the CPU boats, but keeps them in memory
@@ -57,18 +62,28 @@ cpu_board.make_board()
 
 # the main game loop, which includes:
  
-def run_game():    
+def run_game():
+    player_board = Gameboard("PLAYER", 5)
+    player_board.make_board()
+
+    cpu_board = Gameboard("COMPUTER", 5)
+    cpu_board.make_board()   
+
 #player turn
     # prompt the player for input  
     print("Guess where the computer's boats are!")
     row = int(input(f"Enter a row number between 1 - {player_board.size}: "))
     column = int(input(f"Enter a column number between 1 - {player_board.size}: "))
-    # a function that decreases the players input by 1, to get correct index
+    # decreases the players input by 1, to get correct index (0-4)
     x_row = row - 1
     y_column = column - 1
 
     # check if the player's input is valid (and returns error message)
+    player_board.check_valid()
+
     # check whether the players input is a hit or miss
+    player_board.check_hit()
+
     # draw the players input (and result) on the computer's game board
     # check if any player has won the game
 
