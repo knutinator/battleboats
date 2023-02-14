@@ -14,24 +14,31 @@ class Gameboard:
         
 
     def make_board(self):
+        """
+        Draws a gameboard based on size argument.
+        Places a number of boats randomly, boat count is based on size arg.
+        """
         print(self.name)
         game_board = [["."] * self.size for _ in range(self.size)]
+        count = 0
+        while count < self.size:
+            x = randint(0, self.size)
+            y = randint(0, self.size)
+            count += 1
+            if game_board[x-1][y-1] == ".":
+                game_board[x-1][y-1] = "B"
+
         for point in game_board:
             print(*point)
         print("\n")
 
-    def make_boats(self):
-        x = randint(0, self.size)
-        y = randint(0, self.size)
-        print(x, y)
-
 
 player_board = Gameboard("PLAYER", 5)
 player_board.make_board()
-player_board.make_boats()
 
 cpu_board = Gameboard("CPU", 5)
 cpu_board.make_board()
+
 
 
 # a function that randomly places boats for each player
