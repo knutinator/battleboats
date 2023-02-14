@@ -29,7 +29,7 @@ class Gameboard:
         
         # makes an invisible board for cpu
         if self.name == "COMPUTER":
-            self.cpu_board_inv = [["o"] * self.size for _ in range(self.size)]
+            self.cpu_board_inv = [["."] * self.size for _ in range(self.size)]
         
         # generate random number
         count = 0
@@ -45,7 +45,7 @@ class Gameboard:
                     self.game_board[self.x][self.y] = "B"
             # puts invisible boats on cpu invisible board
             if self.name == "COMPUTER":
-                if self.cpu_board_inv[self.x][self.y] == "o":
+                if self.cpu_board_inv[self.x][self.y] == ".":
                     self.cpu_board_inv[self.x][self.y] = "B"    
 
         # makes game board display without ""        
@@ -55,7 +55,11 @@ class Gameboard:
         
         # TEMP, just to see hidden cpu board
         if self.name == "COMPUTER":
-            print(f"invisible: {self.cpu_board_inv}")
+            print("invisible:")
+            for point in self.cpu_board_inv:
+                print(*point)
+            print("\n")
+            
 
     # method to check if user input is valid    
     def check_valid(self, x_row, y_column):
