@@ -64,6 +64,11 @@ class Gameboard:
     # method to check if user input is a hit
     def check_hit(self, x_row, y_column):
         print("check_hit")    
+        if self.cpu_board_inv[x_row][y_column] == "B":
+            print("hit!")
+        else:
+            print("miss!")    
+
 
     # method to draw new symbols on the board
     def redraw_board(self):  
