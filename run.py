@@ -11,6 +11,9 @@ class Gameboard:
     def __init__(self, name, size,):
         self.name = name
         self.size = size
+        self.game_board = None
+        self.x = None
+        self.y = None
         
 
     def make_board(self):
@@ -19,31 +22,35 @@ class Gameboard:
         Places a number of boats randomly, boat count is based on size arg.
         """
         print(self.name)
-        game_board = [["."] * self.size for _ in range(self.size)]
+        self.game_board = [["."] * self.size for _ in range(self.size)]
         count = 0
         
         while count < self.size:
-            x = randint(0, self.size-1)
-            y = randint(0, self.size-1)
+            self.x = randint(0, self.size-1)
+            self.y = randint(0, self.size-1)
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
             # print(f"x, y {x, y}")
             count += 1 
-            if game_board[x][y] == ".":
-                game_board[x][y] = "B"
+            if self.game_board[self.x][self.y] == ".":
+                self.game_board[self.x][self.y] = "B"
 
-        for point in game_board:
+        for point in self.game_board:
             print(*point)
         print("\n")
 
 
-    def check_valid(self):    
+    def check_valid(self, x_row, y_column):
+        print("check_valid")    
 
 
-    def check_hit(self):   
+    def check_hit(self, x_row, y_column):
+        print(self.game_board)    
 
 
-    def redraw_board(self):    
+
+    def redraw_board(self):  
+        print(None)      
 
 
 # Function that hides the CPU boats, but keeps them in memory
@@ -71,7 +78,7 @@ def run_game():
 
 #player turn
     # prompt the player for input  
-    print("Guess where the computer's boats are!")
+    print("Guess where the computer's boats are!\n")
     row = int(input(f"Enter a row number between 1 - {player_board.size}: "))
     column = int(input(f"Enter a column number between 1 - {player_board.size}: "))
     # decreases the players input by 1, to get correct index (0-4)
@@ -79,10 +86,10 @@ def run_game():
     y_column = column - 1
 
     # check if the player's input is valid (and returns error message)
-    player_board.check_valid()
+    player_board.check_valid(x_row, y_column)
 
     # check whether the players input is a hit or miss
-    player_board.check_hit()
+    player_board.check_hit(x_row, y_column)
 
     # draw the players input (and result) on the computer's game board
     # check if any player has won the game
