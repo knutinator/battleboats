@@ -1,13 +1,11 @@
 from random import randint
 
-
 # Inspiration taken from:
 # https://codereview.stackexchange.com/questions/232013/a-simple-battleship-game
 
 # function to start a new game
 print("\nB A T T L E B O A T S\n")
 
-# a function that draws the board for the user and the computer
 
 class Gameboard:
     def __init__(self, name, size,):
@@ -18,14 +16,15 @@ class Gameboard:
         self.y = None
         self.cpu_board_inv = None
         
-        
+    # method to draw the board for the user and the computer    
     def make_board(self):
         """
         Draws a gameboard based on size argument.
         Places a number of boats randomly, boat count is based on size arg.
         """
         print(self.name)
-        # makes both boards
+
+        # makes a board
         self.game_board = [["."] * self.size for _ in range(self.size)]
         
         # makes an invisible board for cpu
@@ -40,51 +39,42 @@ class Gameboard:
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
             count += 1 
+            # puts boats on player board
             if self.name == "PLAYER":
                 if self.game_board[self.x][self.y] == ".":
                     self.game_board[self.x][self.y] = "B"
+            # puts invisible boats on cpu invisible board
             if self.name == "COMPUTER":
                 if self.cpu_board_inv[self.x][self.y] == "o":
                     self.cpu_board_inv[self.x][self.y] = "B"    
-                
+
+        # makes game board display without ""        
         for point in self.game_board:
             print(*point)
         print("\n")
         
+        # TEMP, just to see hidden cpu board
         if self.name == "COMPUTER":
             print(f"invisible: {self.cpu_board_inv}")
 
-        
+    # method to check if user input is valid    
     def check_valid(self, x_row, y_column):
         print("check_valid")    
 
-
+    # method to check if user input is a hit
     def check_hit(self, x_row, y_column):
         print("check_hit")    
 
-
+    # method to draw new symbols on the board
     def redraw_board(self):  
         print(None)      
-
-
-# Function that hides the CPU boats, but keeps them in memory
-
-
-# a function that randomly places boats for each player
-    # select a random column and a random row in the board
-    # generate a boat
-    # item x in list y in player_board list
-    # loop 5 times
-
 
 # a turn counter function that tells how long the game has been played
 # a while loop that keeps the game running until win or lose condition are met
 # a function that shows which player won the game and asks for a rematch
 
 # the main game loop
- 
 # NEEDS TO BE A WHILE LOOP, THAT RUNS UNTIL SOMEONE WINS
-
 
 def run_game():
     # These must be outside loop: (put into populate_game function)
