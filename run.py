@@ -7,6 +7,8 @@ from random import randint
 print("\nB A T T L E B O A T S\n")
 
 # a function that draws the board for the user and the computer
+
+
 class Gameboard:
     def __init__(self, name, size,):
         self.name = name
@@ -23,30 +25,34 @@ class Gameboard:
         """
         print(self.name)
         self.game_board = [["."] * self.size for _ in range(self.size)]
-        count = 0
         
+        count = 0
         while count < self.size:
             self.x = randint(0, self.size-1)
             self.y = randint(0, self.size-1)
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
-            # print(f"x, y {x, y}")
             count += 1 
-            if self.game_board[self.x][self.y] == ".":
-                self.game_board[self.x][self.y] = "B"
-
+            if self.name == "PLAYER":
+                if self.game_board[self.x][self.y] == ".":
+                    self.game_board[self.x][self.y] = "B"
+        
         for point in self.game_board:
             print(*point)
         print("\n")
 
+        # makes an invisible board
+        if self.name == "COMPUTER":
+            cpu_board_inv = [[self.size] * self.size] * self.size
+            print(cpu_board_inv) 
 
+        
     def check_valid(self, x_row, y_column):
         print("check_valid")    
 
 
     def check_hit(self, x_row, y_column):
-        print(self.game_board)    
-
+        print("check hit")    
 
 
     def redraw_board(self):  
@@ -69,6 +75,7 @@ class Gameboard:
 
 # the main game loop, which includes:
  
+
 def run_game():
     player_board = Gameboard("PLAYER", 5)
     player_board.make_board()
@@ -88,8 +95,8 @@ def run_game():
     # check if the player's input is valid (and returns error message)
     player_board.check_valid(x_row, y_column)
 
-    # check whether the players input is a hit or miss
-    player_board.check_hit(x_row, y_column)
+    # check whether the players input is a hit or miss (on computers board)
+    cpu_board.check_hit(x_row, y_column)
 
     # draw the players input (and result) on the computer's game board
     # check if any player has won the game
@@ -100,5 +107,6 @@ def run_game():
     # draw the cpu:s choice on the players game board
     # check if any player has won the game
     # increase the turn counter by one
+
 
 run_game()
