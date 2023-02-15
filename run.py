@@ -24,7 +24,7 @@ class Gameboard:
         Draws gameboards based on size argument.
         Places a number of boats randomly, boat count is based on size arg.
         """
-        print(self.name)
+        print(f"{self.name} BOARD")
 
         # makes a board for player
         if self.name == "PLAYER":
@@ -64,7 +64,7 @@ class Gameboard:
 
         # TEMP, just to see hidden cpu board
         if self.name == "COMPUTER":
-            print("invisible:")
+            print("invisible cpu board")
             for point in self.cpu_board_inv:
                 print(*point)
             print("\n")
@@ -87,23 +87,27 @@ class Gameboard:
 
     # redraw board
     def redraw_board(self, x_row, y_column, cpu_x_row, cpu_y_column):  
-        print(self.name)
+        print(f"{self.name} BOARD")
         if self.name == "COMPUTER":
             if not self.cpu_board_inv[x_row][y_column] == "B":
+                print("Splash! You missed...")
                 self.cpu_game_board[x_row][y_column] = "o"
                 for point in self.cpu_game_board:
                     print(*point)
             else:
                 self.cpu_game_board[x_row][y_column] = "#"
+                print("Boom! You hit a boat!")
                 for point in self.cpu_game_board:
                     print(*point)
         elif self.name == "PLAYER":
             if not self.pl_game_board[cpu_x_row][cpu_y_column] == "B":
+                print("Splash! Computer missed!")
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "o"
                 for point in self.pl_game_board:
                     print(*point)
             else:
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "#"
+                print("Boom! Computer sank your boat...")
                 for point in self.pl_game_board:
                     print(*point)
         print("\n")            
