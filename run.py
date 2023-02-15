@@ -4,7 +4,8 @@ from random import randint
 # https://codereview.stackexchange.com/questions/232013/a-simple-battleship-game
 
 # function to start a new game
-print("\nB A T T L E B O A T S\n")
+
+game_over = 0
 
 
 class Gameboard:
@@ -85,38 +86,52 @@ class Gameboard:
 # the main game loop
 # NEEDS TO BE A WHILE LOOP, THAT RUNS UNTIL SOMEONE WINS
 
-def run_game():
-    # These must be outside loop: (put into populate_game function)
+# greets the player and calls function to set up game
+
+
+# draws game boards
+def new_game():
     player_board = Gameboard("PLAYER", 5)
     player_board.make_board()
-
     cpu_board = Gameboard("COMPUTER", 5)
-    cpu_board.make_board()   
+    cpu_board.make_board()  
     
-#player turn
-    # prompt the player for input  
-    print("Guess where the computer's boats are!\n")
-    row = int(input(f"Enter a row number between 1 - {player_board.size}: "))
-    column = int(input(f"Enter a column number between 1 - {player_board.size}: "))
-    # decreases the players input by 1, to get correct index (0-4)
-    x_row = row - 1
-    y_column = column - 1
+    print("\nB A T T L E B O A T S\n")
+    
+    # main game loop:
+    while game_over == 0:
+        # player turn
+        # prompt the player for input  
+        print("Guess where the computer's boats are!\n")
+        row = int(input(f"Enter a row number between 1 - {player_board.size}: "))
+        column = int(input(f"Enter a column number between 1 - {player_board.size}: "))
+        # decreases the players input by 1, to get correct index (0-4)
+        x_row = row - 1
+        y_column = column - 1
 
-    # check if the player's input is valid (and returns error message)
-    player_board.check_valid(x_row, y_column)
+        # check if the player's input is valid (and returns error message)
+        player_board.check_valid(x_row, y_column)
 
-    # check whether the players input is a hit or miss (on computers board)
-    cpu_board.check_hit(x_row, y_column)
+        # check whether the players input is a hit or miss (on computers board)
+        cpu_board.check_hit(x_row, y_column)
 
-    # draw the players input (and result) on the computer's game board
-    # check if any player has won the game
+        # draw the players input (and result) on the computer's game board
+        # check if any player has won the game
 
-#cpu turn
-    # make a random selection on the board
-    # check if the cpu:s choice is a hit or miss
-    # draw the cpu:s choice on the players game board
-    # check if any player has won the game
-    # increase the turn counter by one
+        #cpu turn
+        # make a random selection on the board
+        # check if the cpu:s choice is a hit or miss
+        # draw the cpu:s choice on the players game board
+        # check if any player has won the game
+        # increase the turn counter by one
+        # 
+        if game_over == 1:
+            declare_winner()
+            break
+    
+    
+new_game()
 
 
-run_game()
+def declare_winner():
+    print("winner")
