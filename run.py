@@ -63,7 +63,6 @@ class Gameboard:
             
         print("\n")
         
-
         # # TEMP, just to see hidden cpu board
         # if self.name == "COMPUTER":
         #     print("invisible cpu board")
@@ -121,15 +120,7 @@ class Gameboard:
             self.game_over = 1    
 
         print("\n")  
-
-
-# add a turn counter function that tells how long the game has been played
-
-# method to check if user input is valid    
-def check_valid(x_row, y_column):
-    print("check_valid")    
-
-
+  
 # draws game boards
 def new_game():
     print("\nB A T T L E B O A T S\n")
@@ -168,6 +159,8 @@ def new_game():
 
     # cpu turn
         # make a random selection on the board
+
+        # why loop 5 times?
         count = 0
         while count < cpu_board.size:
             cpu_board.x = randint(0, cpu_board.size-1)
@@ -175,8 +168,9 @@ def new_game():
             
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
-
+        
             count += 1 
+        # it needs to add generated numbers to a list and check if numbers are in the list each loop    
 
         cpu_x_row = cpu_board.x
         cpu_y_column = cpu_board.y
@@ -189,7 +183,7 @@ def new_game():
         # checks if any player has won the game
         if player_board.game_over or cpu_board.game_over == 1:
             break
-    input('Press ENTER to restart game.')
+    input("\nPress ENTER to restart game.\n")
     new_game()    
         
 # runs the whole game
