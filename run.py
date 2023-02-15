@@ -8,6 +8,7 @@ from random import randint
 game_over = 0
 
 
+
 class Gameboard:
     def __init__(self, name, size,):
         self.name = name
@@ -17,6 +18,8 @@ class Gameboard:
         self.x = None
         self.y = None
         self.cpu_board_inv = None
+        self.player_score = 0
+        self.cpu_score = 0
         
     # method to draw the board for the user and the computer    
     def make_board(self):
@@ -75,43 +78,46 @@ class Gameboard:
         print("check_valid")    
 
 
-    # method to check if user input is a hit
-    def check_hit(self, x_row, y_column):
-        print("check_hit")    
-        if self.cpu_board_inv[x_row][y_column] == "B":
-            print("hit!")
-            # 
-        else:
-            print("miss!")    
-
 
     # redraw board
     def redraw_board(self, x_row, y_column, cpu_x_row, cpu_y_column):  
         print(f"{self.name} BOARD")
-        if self.name == "COMPUTER":
+        if self.name == "COMPUTER": # Computer board (bottom)
             if not self.cpu_board_inv[x_row][y_column] == "B":
-                print("Splash! You missed...")
+                
                 self.cpu_game_board[x_row][y_column] = "o"
                 for point in self.cpu_game_board:
                     print(*point)
+                print("Splash! You missed...")    
+                print(f"Your score: {self.player_score}")  
             else:
-                self.cpu_game_board[x_row][y_column] = "#"
-                print("Boom! You hit a boat!")
+                self.cpu_game_board[x_row][y_column] = "#"                
                 for point in self.cpu_game_board:
                     print(*point)
-        elif self.name == "PLAYER":
+                self.player_score += 1  
+                print("Boom! You hit a boat!")
+                print(f"Your score: {self.player_score}")  
+                    
+        elif self.name == "PLAYER": # Player board (top)
             if not self.pl_game_board[cpu_x_row][cpu_y_column] == "B":
-                print("Splash! Computer missed!")
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "o"
                 for point in self.pl_game_board:
                     print(*point)
+                print("Splash! Computer missed!")
+                print(f"CPU score: {self.cpu_score}")      
             else:
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "#"
-                print("Boom! Computer sank your boat...")
                 for point in self.pl_game_board:
                     print(*point)
-        print("\n")            
+                print("Boom! Computer sank your boat...")
+                self.player_score += 1
+                print(f"CPU score: {self.cpu_score}")    
+         
+        print("\n")  
+
     
+    
+
 
 # a turn counter function that tells how long the game has been played
 # a while loop that keeps the game running until win or lose condition are met
@@ -125,6 +131,7 @@ def new_game():
     player_board.make_board()
     cpu_board = Gameboard("COMPUTER", 5)
     cpu_board.make_board()  
+
     
         
     # main game loop:
@@ -141,8 +148,8 @@ def new_game():
         # check if the player's input is valid (and returns error message)
         player_board.check_valid(x_row, y_column)
 
-        # check whether the players input is a hit or miss (on computers board)
-        cpu_board.check_hit(x_row, y_column)
+        
+    
 
         # draw the players input (and result) on the computer's game board
         # check if any player has won the game
