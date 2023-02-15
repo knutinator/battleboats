@@ -21,7 +21,7 @@ class Gameboard:
     # method to draw the board for the user and the computer    
     def make_board(self):
         """
-        Draws a gameboard based on size argument.
+        Draws gameboards based on size argument.
         Places a number of boats randomly, boat count is based on size arg.
         """
         print(self.name)
@@ -30,15 +30,12 @@ class Gameboard:
         if self.name == "PLAYER":
             self.pl_game_board = [["."] * self.size for _ in range(self.size)]
             
-        # makes a board for computer
+        # makes a board + an invisible board for computer
         if self.name == "COMPUTER":
             self.cpu_game_board = [["."] * self.size for _ in range(self.size)]
-        
-        # makes an invisible board for cpu
-        if self.name == "COMPUTER":
             self.cpu_board_inv = [["."] * self.size for _ in range(self.size)]
         
-        # generate random number
+        # generate random coordinate
         count = 0
         while count < self.size:
             self.x = randint(0, self.size-1)
@@ -55,7 +52,7 @@ class Gameboard:
                 if self.cpu_board_inv[self.x][self.y] == ".":
                     self.cpu_board_inv[self.x][self.y] = "B"    
 
-        # makes game board display without
+        # makes game boards display without ""
         if self.name == "PLAYER":        
             for point in self.pl_game_board: 
                 print(*point)
@@ -100,6 +97,7 @@ class Gameboard:
                 for point in self.cpu_game_board:
                     print(*point)
         elif self.name == "PLAYER": 
+            print(cpu_x_row, cpu_y_column)
             for point in self.pl_game_board:
                 print(*point)
         print("\n")            
@@ -123,8 +121,7 @@ def new_game():
     cpu_board = Gameboard("COMPUTER", 5)
     cpu_board.make_board()  
     
-    
-    
+        
     # main game loop:
     while game_over == 0:
         # player turn
@@ -147,9 +144,16 @@ def new_game():
 
         #cpu turn
         # make a random selection on the board
-        #dummy data:
-        cpu_x_row = 1
-        cpu_y_column = 1
+        count = 0
+        while count < cpu_board.size:
+            cpu_board.x = randint(0, cpu_board.size-1)
+            cpu_board.y = randint(0, cpu_board.size-1)
+            # sometimes generates same number twice, add function to check,
+            # maybe while game_board[x][y] == B: randomize again?
+            count += 1 
+            
+        cpu_x_row = cpu_board.x
+        cpu_y_column = cpu_board.y
         # check if the cpu:s choice is a hit or miss
         # draw the cpu:s choice on the players game board
         # check if any player has won the game
