@@ -7,8 +7,8 @@ class Gameboard:
     def __init__(self, name, size,):
         self.name = name
         self.size = size
-        self.pl_game_board = None
-        self.cpu_game_board = None
+        self.pl_game_board = []
+        self.cpu_game_board = []
         self.x = None
         self.y = None
         self.cpu_board_inv = None
@@ -35,21 +35,22 @@ class Gameboard:
             self.cpu_board_inv = [["."] * self.size for _ in range(self.size)]
         
         # generate random coordinate
-        count = 0
-        while count < self.size:
+        boat_count = 0
+        while boat_count < self.size:
             self.x = randint(0, self.size-1)
             self.y = randint(0, self.size-1)
-            # sometimes generates same number twice, add function to check,
-            # maybe while game_board[x][y] == B: randomize again?
-            count += 1 
+            
             # puts boats on player board
             if self.name == "PLAYER":
                 if self.pl_game_board[self.x][self.y] == ".":
                     self.pl_game_board[self.x][self.y] = "B"
+                    boat_count += 1
+                    
             # puts invisible boats on cpu invisible board
             if self.name == "COMPUTER":
                 if self.cpu_board_inv[self.x][self.y] == ".":
-                    self.cpu_board_inv[self.x][self.y] = "B"    
+                    self.cpu_board_inv[self.x][self.y] = "B"
+                    boat_count += 1
 
         # makes game boards display without ""
         if self.name == "PLAYER":        
@@ -59,7 +60,9 @@ class Gameboard:
         if self.name == "COMPUTER":
             for point in self.cpu_game_board: 
                 print(*point)
+            
         print("\n")
+        
 
         # # TEMP, just to see hidden cpu board
         # if self.name == "COMPUTER":
@@ -169,8 +172,10 @@ def new_game():
         while count < cpu_board.size:
             cpu_board.x = randint(0, cpu_board.size-1)
             cpu_board.y = randint(0, cpu_board.size-1)
+            
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
+
             count += 1 
 
         cpu_x_row = cpu_board.x
