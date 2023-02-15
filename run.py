@@ -184,7 +184,9 @@ def new_game():
         # checks if any player has won the game
         if player_board.game_over or cpu_board.game_over == 1:
             break
-
+    input('Press ENTER to restart game.')
+    new_game()    
+        
 # runs the whole game
 new_game() 
 
