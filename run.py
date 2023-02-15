@@ -12,7 +12,8 @@ class Gameboard:
     def __init__(self, name, size,):
         self.name = name
         self.size = size
-        self.game_board = None
+        self.pl_game_board = None
+        self.cpu_game_board = None
         self.x = None
         self.y = None
         self.cpu_board_inv = None
@@ -25,8 +26,13 @@ class Gameboard:
         """
         print(self.name)
 
-        # makes a board
-        self.game_board = [["."] * self.size for _ in range(self.size)]
+        # makes a board for player
+        if self.name == "PLAYER":
+            self.pl_game_board = [["."] * self.size for _ in range(self.size)]
+            
+        # makes a board for computer
+        if self.name == "COMPUTER":
+            self.cpu_game_board = [["."] * self.size for _ in range(self.size)]
         
         # makes an invisible board for cpu
         if self.name == "COMPUTER":
@@ -42,18 +48,23 @@ class Gameboard:
             count += 1 
             # puts boats on player board
             if self.name == "PLAYER":
-                if self.game_board[self.x][self.y] == ".":
-                    self.game_board[self.x][self.y] = "B"
+                if self.pl_game_board[self.x][self.y] == ".":
+                    self.pl_game_board[self.x][self.y] = "B"
             # puts invisible boats on cpu invisible board
             if self.name == "COMPUTER":
                 if self.cpu_board_inv[self.x][self.y] == ".":
                     self.cpu_board_inv[self.x][self.y] = "B"    
 
-        # makes game board display without ""        
-        for point in self.game_board:
-            print(*point)
+        # makes game board display without
+        if self.name == "PLAYER":        
+            for point in self.pl_game_board: 
+                print(*point)
+
+        if self.name == "COMPUTER":
+            for point in self.cpu_game_board: 
+                print(*point)
         print("\n")
-        
+
         # TEMP, just to see hidden cpu board
         if self.name == "COMPUTER":
             print("invisible:")
@@ -72,16 +83,27 @@ class Gameboard:
         print("check_hit")    
         if self.cpu_board_inv[x_row][y_column] == "B":
             print("hit!")
+            # 
         else:
             print("miss!")    
 
 
-    # method to draw new symbols on the board
-    def redraw_board(self):  
+    # redraw board
+    def redraw_board(self, x_row, y_column, cpu_x_row, cpu_y_column):  
         print(self.name)
-        for point in self.game_board:
-            print(*point)
-        print("\n")
+        if self.name == "COMPUTER":
+            if not self.cpu_board_inv[x_row][y_column] == "B":
+                for point in self.cpu_game_board:
+                    print(*point)
+            else:
+                self.cpu_game_board[x_row][y_column] = "#"
+                for point in self.cpu_game_board:
+                    print(*point)
+        elif self.name == "PLAYER": 
+            for point in self.pl_game_board:
+                print(*point)
+        print("\n")            
+    
 
 # a turn counter function that tells how long the game has been played
 # a while loop that keeps the game running until win or lose condition are met
@@ -95,12 +117,13 @@ class Gameboard:
 
 # draws game boards
 def new_game():
+    print("\nB A T T L E B O A T S\n")
     player_board = Gameboard("PLAYER", 5)
     player_board.make_board()
     cpu_board = Gameboard("COMPUTER", 5)
     cpu_board.make_board()  
     
-    print("\nB A T T L E B O A T S\n")
+    
     
     # main game loop:
     while game_over == 0:
@@ -124,13 +147,17 @@ def new_game():
 
         #cpu turn
         # make a random selection on the board
+        #dummy data:
+        cpu_x_row = 1
+        cpu_y_column = 1
         # check if the cpu:s choice is a hit or miss
         # draw the cpu:s choice on the players game board
         # check if any player has won the game
         # increase the turn counter by one
         
-        player_board.redraw_board()
-        cpu_board.redraw_board()
+        # player_board.redraw_board()
+        player_board.redraw_board(x_row, y_column, cpu_x_row, cpu_y_column)
+        cpu_board.redraw_board(x_row, y_column, cpu_x_row, cpu_y_column)
 
 
         if game_over == 1:
