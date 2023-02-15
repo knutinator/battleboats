@@ -96,10 +96,14 @@ class Gameboard:
                 self.cpu_game_board[x_row][y_column] = "#"
                 for point in self.cpu_game_board:
                     print(*point)
-        elif self.name == "PLAYER": 
-            print(cpu_x_row, cpu_y_column)
-            for point in self.pl_game_board:
-                print(*point)
+        elif self.name == "PLAYER":
+            if not self.pl_game_board[cpu_x_row][cpu_y_column] == "B":
+                for point in self.pl_game_board:
+                    print(*point)
+            else:
+                self.pl_game_board[cpu_x_row][cpu_y_column] = "#"
+                for point in self.pl_game_board:
+                    print(*point)
         print("\n")            
     
 
@@ -151,7 +155,7 @@ def new_game():
             # sometimes generates same number twice, add function to check,
             # maybe while game_board[x][y] == B: randomize again?
             count += 1 
-            
+
         cpu_x_row = cpu_board.x
         cpu_y_column = cpu_board.y
         # check if the cpu:s choice is a hit or miss
