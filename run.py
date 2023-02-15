@@ -61,19 +61,13 @@ class Gameboard:
                 print(*point)
         print("\n")
 
-        # TEMP, just to see hidden cpu board
-        if self.name == "COMPUTER":
-            print("invisible cpu board")
-            for point in self.cpu_board_inv:
-                print(*point)
-            print("\n")
+        # # TEMP, just to see hidden cpu board
+        # if self.name == "COMPUTER":
+        #     print("invisible cpu board")
+        #     for point in self.cpu_board_inv:
+        #         print(*point)
+        #     print("\n")
             
-
-    # method to check if user input is valid    
-    def check_valid(self, x_row, y_column):
-        print("check_valid")    
-
-
     # redraw board
     def redraw_board(self, x_row, y_column, cpu_x_row, cpu_y_column):  
         print(f"{self.name} BOARD")
@@ -83,7 +77,14 @@ class Gameboard:
                 for point in self.cpu_game_board:
                     print(*point)
                 print("SPLASH! You missed...")    
-                print(f"Your score: {self.player_score}")  
+                print(f"Your score: {self.player_score}")
+
+            elif self.cpu_game_board[x_row][y_column] == "#":
+                for point in self.cpu_game_board:
+                    print(*point)
+                print("You already sank that ship!")    
+                print(f"Your score: {self.player_score}")   
+
             else:
                 self.cpu_game_board[x_row][y_column] = "#"                
                 for point in self.cpu_game_board:
@@ -98,7 +99,8 @@ class Gameboard:
                 for point in self.pl_game_board:
                     print(*point)
                 print("SPLASH! Computer missed!")
-                print(f"CPU score: {self.cpu_score}")      
+                print(f"CPU score: {self.cpu_score}") 
+                     
             else:
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "#"
                 for point in self.pl_game_board:
@@ -120,6 +122,11 @@ class Gameboard:
 
 # add a turn counter function that tells how long the game has been played
 
+# method to check if user input is valid    
+def check_valid(x_row, y_column):
+    print("check_valid")    
+
+
 # draws game boards
 def new_game():
     print("\nB A T T L E B O A T S\n")
@@ -140,7 +147,7 @@ def new_game():
         y_column = column - 1
 
         # check if the player's input is valid (and returns error message)
-        player_board.check_valid(x_row, y_column)
+        check_valid(x_row, y_column)
 
     # cpu turn
         # make a random selection on the board
