@@ -90,6 +90,7 @@ class Gameboard:
         print(self.name)
         if self.name == "COMPUTER":
             if not self.cpu_board_inv[x_row][y_column] == "B":
+                self.cpu_game_board[x_row][y_column] = "o"
                 for point in self.cpu_game_board:
                     print(*point)
             else:
@@ -98,6 +99,7 @@ class Gameboard:
                     print(*point)
         elif self.name == "PLAYER":
             if not self.pl_game_board[cpu_x_row][cpu_y_column] == "B":
+                self.pl_game_board[cpu_x_row][cpu_y_column] = "o"
                 for point in self.pl_game_board:
                     print(*point)
             else:
@@ -110,11 +112,6 @@ class Gameboard:
 # a turn counter function that tells how long the game has been played
 # a while loop that keeps the game running until win or lose condition are met
 # a function that shows which player won the game and asks for a rematch
-
-# the main game loop
-# NEEDS TO BE A WHILE LOOP, THAT RUNS UNTIL SOMEONE WINS
-
-# greets the player and calls function to set up game
 
 
 # draws game boards
