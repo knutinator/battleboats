@@ -100,7 +100,7 @@ class Gameboard:
                     print(*point)
                 print("SPLASH! Computer missed!")
                 print(f"CPU score: {self.cpu_score}") 
-                     
+
             else:
                 self.pl_game_board[cpu_x_row][cpu_y_column] = "#"
                 for point in self.pl_game_board:
@@ -138,16 +138,30 @@ def new_game():
     # main game loop:
     while player_board.game_over or cpu_board.game_over == 0:
     # player turn
-        # prompt the player for input  
-        print("Guess where the computer's boats are!\n")
-        row = int(input(f"Enter a row nr between 1 - {player_board.size}: "))
-        column = int(input(f"Enter a col nr between 1 - {player_board.size}: "))
+        # prompt the player for input, check for validity
+        while True:
+            try:
+                print("Guess where the computer's boats are!\n")
+                row = int(input(f"Enter a row nr between 1 - {player_board.size}: "))
+                column = int(input(f"Enter a col nr between 1 - {player_board.size}: "))
+            except ValueError:
+                print(f"\nPlease only enter numbers between 1 - {player_board.size}. Try again!\n")
+                continue
+
+            if row not in range(0, player_board.size+1):
+                print(f"\nPlease only enter numbers between 1 - {player_board.size}. Try again!\n")
+                continue
+
+            if column not in range(0, player_board.size+1):
+                print(f"\nPlease only enter numbers between 1 - {player_board.size}. Try again!\n")
+                continue
+
+            else:
+                break
+        
         # decreases the players input by 1, to get correct index (0-4)
         x_row = row - 1
         y_column = column - 1
-
-        # check if the player's input is valid (and returns error message)
-        check_valid(x_row, y_column)
 
     # cpu turn
         # make a random selection on the board
@@ -163,6 +177,7 @@ def new_game():
         cpu_y_column = cpu_board.y
 
         # redraws the game boards
+        print("\n")  # spacing above game boards
         player_board.redraw_board(x_row, y_column, cpu_x_row, cpu_y_column)
         cpu_board.redraw_board(x_row, y_column, cpu_x_row, cpu_y_column)
         
