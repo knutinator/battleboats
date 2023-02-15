@@ -66,6 +66,7 @@ class Gameboard:
     def check_valid(self, x_row, y_column):
         print("check_valid")    
 
+
     # method to check if user input is a hit
     def check_hit(self, x_row, y_column):
         print("check_hit")    
@@ -77,7 +78,10 @@ class Gameboard:
 
     # method to draw new symbols on the board
     def redraw_board(self):  
-        print(None)      
+        print(self.name)
+        for point in self.game_board:
+            print(*point)
+        print("\n")
 
 # a turn counter function that tells how long the game has been played
 # a while loop that keeps the game running until win or lose condition are met
@@ -124,12 +128,16 @@ def new_game():
         # draw the cpu:s choice on the players game board
         # check if any player has won the game
         # increase the turn counter by one
-        # 
+        
+        player_board.redraw_board()
+        cpu_board.redraw_board()
+
+
         if game_over == 1:
             declare_winner()
             break
     
-    
+
 new_game()
 
 
