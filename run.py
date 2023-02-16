@@ -171,13 +171,13 @@ def new_game():
                 continue
 
                 # Checks that selected row is within board
-            if row not in range(0, player_board.size+1):
+            if row not in range(1, player_board.size+1):
                 print(f"""
                 Only enter numbers between 1 - {player_board.size}.\n""")
                 continue
 
                 # Checks that selected column is within board
-            if column not in range(0, player_board.size+1):
+            if column not in range(1, player_board.size+1):
                 print(f"""
                 Only enter numbers between 1 - {player_board.size}.\n""")
                 continue
