@@ -123,10 +123,15 @@ class Gameboard:
   
 # draws game boards
 def new_game():
-    print("\nB A T T L E B O A T S\n")
+    # The number below controls the board size and the number of boats
     player_board = Gameboard("PLAYER", 5)
-    player_board.make_board()
     cpu_board = Gameboard("COMPUTER", 5)
+    # Title screen and instructions for gameplay
+    print("\nB A T T L E B O A T S\n")
+    print(f"Each player has {player_board.size} hidden boats, (B).")
+    print("Find them all to win!\n")
+    input("\nPress ENTER to start game.\n")
+    player_board.make_board()
     cpu_board.make_board()  
 
     # main game loop:
