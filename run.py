@@ -133,6 +133,7 @@ def new_game():
     input("\nPress ENTER to start game.\n")
     player_board.make_board()
     cpu_board.make_board()  
+    cpu_guesses = []
 
     # main game loop:
     while player_board.game_over or cpu_board.game_over == 0:
@@ -163,20 +164,20 @@ def new_game():
         y_column = column - 1
 
     # cpu turn
-        # make a random selection on the board
-
-        # why loop 5 times?
+        # make a random selection on the board, checks if already selected
         count = 0
-        while count < cpu_board.size:
+        while count < 1:
             cpu_board.x = randint(0, cpu_board.size-1)
             cpu_board.y = randint(0, cpu_board.size-1)
-            
-            # sometimes generates same number twice, add function to check,
-            # maybe while game_board[x][y] == B: randomize again?
+            # converts both ints to strings, adds them, converts back to ints to get a 2-digit int
+            cpu_point = int(str(cpu_board.x) + str(cpu_board.y))
+            # checks if 2-digit int is already in list
+            if cpu_point in cpu_guesses:
+                continue
+            else:
+                cpu_guesses.append(cpu_point)
+            count += 1
         
-            count += 1 
-        # it needs to add generated numbers to a list and check if numbers are in the list each loop    
-
         cpu_x_row = cpu_board.x
         cpu_y_column = cpu_board.y
 
