@@ -1,6 +1,6 @@
 from random import randint
 
-# Inspiration taken from:
+# Inspiration for general code function was taken from:
 # https://codereview.stackexchange.com/questions/232013/a-simple-battleship-game
 
 
