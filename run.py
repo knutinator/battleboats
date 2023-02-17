@@ -155,7 +155,7 @@ def new_game():
     # Main game loop:
     while player_board.game_over or cpu_board.game_over == 0:
 
-        # player turn: prompts the player for input, checks for validity
+        # Player turn: prompts the player for input, checks for validity
         while True:
             try:
                 print("Guess where the computer's boats are!\n")
@@ -185,7 +185,7 @@ def new_game():
             else:
                 break
 
-        # Decreases the players input by 1 to get correct index (0-4)
+        # Decreases the player's input by 1 to get correct index (0-4)
         x_row = row - 1
         y_column = column - 1
 
@@ -207,7 +207,7 @@ def new_game():
                 cpu_guesses.append(cpu_point)
             count += 1
 
-        # Stores the computers selection in variables
+        # Stores the computer's selection in variables
         cpu_x_row = cpu_board.x
         cpu_y_column = cpu_board.y
 
